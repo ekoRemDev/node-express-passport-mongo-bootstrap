@@ -109,3 +109,4 @@ app.listen(app.get('port'), function(){
 // Todo 22 - Install and add Bootstap js into public/js folder
 // Todo 23 - Install and add Bootstap fonts into public/fonts folder
 // Todo 24 - Add styles and js into layout
+// Todo 25 - Add Bootstrap Theme into layout.handlebars
