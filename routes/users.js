@@ -1,8 +1,8 @@
 // Todo 15-2 users.js
-
 const express = require('express');
 const router = express.Router();
-
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 const User = require('../models/user');
 
@@ -12,9 +12,10 @@ router.get('/register', (req, res) => {
 });
 
 // Login
-router.get('/login', (req, res) => {
+router.get('/login', function (req, res) {
     res.render('login');
 });
+
 
 router.post('/register', (req, res) => {
     // const newUser = {
@@ -68,5 +69,59 @@ router.post('/register', (req, res) => {
 
 
 });
+
+
+passport.use(new LocalStrategy(
+    function(username, password, done) {
+        User.getUserByUsername(username,function(err,user){
+            if(err) throw err;
+            if(!user){
+                return done(null,false,{message:'Unknown User'})
+            }
+            User.comparePassword(password,user.password,function(err, isMatch){
+                if(err) throw err;
+                if(isMatch){
+                    return done (null,user);
+                }else{
+                    return done(null,false,{message:'Invalid Password'});
+                }
+            })
+        });
+    }
+));
+// We have to Create that 2 Functions in User Model
+// 1-  getUserByUsername
+// 2-  comparePassword
+
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+    User.getUserById(id, function(err, user) {
+        done(err, user);
+    });
+});
+
+
+
+// I copied from pasport documentation
+router.post('/login',
+    passport.authenticate('local', { successRedirect: '/', failureRedirect: '/users/login', failureFlash: true }),
+    function (req, res) {
+        res.redirect('/');
+    });
+
+
+router.get('/logout', function (req, res) {
+    req.logout();
+
+    req.flash('success_msg', 'You are logged out');
+
+    res.redirect('/users/login');
+});
+
+
 
 module.exports = router;
