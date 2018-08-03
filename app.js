@@ -110,3 +110,5 @@ app.listen(app.get('port'), function(){
 // Todo 23 - Install and add Bootstap fonts into public/fonts folder
 // Todo 24 - Add styles and js into layout
 // Todo 25 - Add Bootstrap Theme into layout.handlebars
+// Todo 26 - create user register form in views/register.handlebars and edit routes/users
+// Todo 27 - We will create user model
