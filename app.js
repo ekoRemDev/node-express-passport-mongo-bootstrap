@@ -106,5 +106,6 @@ app.listen(app.get('port'), function(){
 // Todo 18 - We create models folder
 
 // Todo 21 - Install and add Bootstap css into public/style folder
-// Todo 21 - Install and add Bootstap js into public/js folder
-// Todo 21 - Install and add Bootstap fonts into public/fonts folder
+// Todo 22 - Install and add Bootstap js into public/js folder
+// Todo 23 - Install and add Bootstap fonts into public/fonts folder
+// Todo 24 - Add styles and js into layout
